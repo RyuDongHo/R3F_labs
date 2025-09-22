@@ -7,13 +7,15 @@ const SphereTest = () => {
       <Canvas
         shadows
         orthographic={true}
-        camera={{ fov: 90, zoom: 70, near: 0.1, far: 1000 }}
+        camera={{
+          fov: 90,
+          near: 0.1,
+          far: 1000,
+          position: [0, 0, 10],
+          zoom: 30
+        }}
       >
         <color attach="background" args={["lightGray"]} />
-        <gridHelper
-          args={[100, 100]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
         <Sphere />
       </Canvas>
     </div>
