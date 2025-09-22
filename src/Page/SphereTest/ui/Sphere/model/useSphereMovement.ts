@@ -23,9 +23,7 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
     sphereRefs.current.children.forEach((sphere, index) => {
       if (sphere instanceof THREE.Mesh) {
         // 크기 랜덤 설정
-        sphere.scale.setScalar(
-          THREE.MathUtils.randFloat(1, 1.5)
-        );
+        sphere.scale.setScalar(THREE.MathUtils.randFloat(1, 1.5));
         // 각 구체에 랜덤한 초기 속도 부여
         velocitiesRef.current[index] = new THREE.Vector3(
           getRandomNonZero({ min: 0.5, max: 3 }),
@@ -105,23 +103,39 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
         for (let i = 1 + index; i < sphereRefs.current.children.length; i++) {
           const otherSphere = sphereRefs.current.children[i];
           if (otherSphere instanceof THREE.Mesh) {
-            const otherRadius = otherSphere.geometry.parameters.radius * otherSphere.scale.x;
-            const dis = sphere.position.distanceTo(otherSphere.position);
+            const otherRadius =
+              otherSphere.geometry.parameters.radius * otherSphere.scale.x;
+            let dis = sphere.position.distanceTo(otherSphere.position);
 
             if (dis < sphereSize + otherRadius) {
               // 충돌시 접점 기준 반대 방향으로 벡터 설정
               const collisionNormal = new THREE.Vector3()
                 .subVectors(sphere.position, otherSphere.position)
-                .normalize().multiplyScalar(speed);
+                .normalize();
+              const collisionMoveVec = collisionNormal
+                .clone()
+                .multiplyScalar(speed);
 
               // 속도 벡터 반전
-              velocity.set(collisionNormal.x, collisionNormal.y, 0);
+              velocity.set(
+                collisionMoveVec.x,
+                collisionMoveVec.y,
+                collisionMoveVec.z
+              );
               // 충돌한 구체도 반대 방향으로 속도 벡터 반전
               velocitiesRef.current[i].set(
-                -1 * collisionNormal.x,
-                -1 * collisionNormal.y,
-                -1 * collisionNormal.z
+                -1 * collisionMoveVec.x,
+                -1 * collisionMoveVec.y,
+                -1 * collisionMoveVec.z
               );
+
+              // 충돌한 구체 위치 보정
+              while (dis < sphereSize + otherRadius) {
+                sphere.position.add(
+                  collisionNormal.clone().multiplyScalar(delta * speed)
+                );
+                dis = sphere.position.distanceTo(otherSphere.position);
+              }
             }
           }
         }
