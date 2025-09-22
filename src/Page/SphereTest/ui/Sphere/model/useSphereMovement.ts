@@ -14,41 +14,24 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
 
   // 각 구체의 속도를 저장하는 ref
   const velocitiesRef = React.useRef<THREE.Vector3[]>([]);
-  // 각 구체의 이펙트 타이머를 저장하는 ref
-  const effectTimersRef = React.useRef<number[]>([]);
-  // 각 구체의 원본 크기를 저장하는 ref
-  const originalScalesRef = React.useRef<THREE.Vector3[]>([]);
 
   React.useEffect(() => {
     if (sphereRefs.current.children.length < 1) return;
-
     // 속도 배열 초기화
     velocitiesRef.current = [];
-    effectTimersRef.current = [];
-    originalScalesRef.current = [];
-
+    // 구체 초기값 설정 (위치, 속도)
     sphereRefs.current.children.forEach((sphere, index) => {
       if (sphere instanceof THREE.Mesh) {
-        // 초기 위치 설정
-        const vec = new THREE.Vector3(
-          THREE.MathUtils.randFloat(-5, 5),
-          THREE.MathUtils.randFloat(0, 10),
-          0
+        // 크기 랜덤 설정
+        sphere.scale.setScalar(
+          THREE.MathUtils.randFloat(1, 1.5)
         );
-        sphere.position.set(vec.x, vec.y, vec.z);
-
         // 각 구체에 랜덤한 초기 속도 부여
         velocitiesRef.current[index] = new THREE.Vector3(
           getRandomNonZero({ min: 0.5, max: 3 }),
           getRandomNonZero({ min: 0.5, max: 3 }),
           getRandomNonZero({ min: 0.5, max: 3 })
-        );
-
-        // 이펙트 타이머 초기화
-        effectTimersRef.current[index] = 0;
-        
-        // 원본 크기 저장
-        originalScalesRef.current[index] = sphere.scale.clone();
+        ).normalize();
       }
     });
   }, [sphereRefs]);
@@ -60,11 +43,16 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
       if (sphere instanceof THREE.Mesh && velocitiesRef.current[index]) {
         const pos = sphere.position;
         const velocity = velocitiesRef.current[index];
-        const sphereSize = sphere.geometry.parameters.radius;
-        const speed = 5; // 움직임 속도
+        const sphereSize = sphere.geometry.parameters.radius * sphere.scale.x;
+        // velocity의 크기가 너무 커지지 않도록 제한
+        if (velocity.length() < 10) {
+          velocity.multiplyScalar(1.02);
+        }
+        // 움직임 속도
+        const speed = 2.5;
 
         // 먼저 위치 업데이트
-        const moveVec = velocity.clone().multiplyScalar(speed * delta);
+        const moveVec = velocity.clone().multiplyScalar(delta * speed);
         pos.add(moveVec);
 
         let isCrashed = false;
@@ -81,7 +69,6 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
           );
           isCrashed = true;
         }
-
         if (
           pos.y > boxCenter.y + boxSize.y / 2 - sphereSize / 2 ||
           pos.y < boxCenter.y - boxSize.y / 2 + sphereSize / 2
@@ -94,7 +81,6 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
           );
           isCrashed = true;
         }
-
         if (
           pos.z > boxCenter.z + boxSize.z / 2 - sphereSize / 2 ||
           pos.z < boxCenter.z - boxSize.z / 2 + sphereSize / 2
@@ -107,13 +93,37 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
           );
           isCrashed = true;
         }
-
         if (isCrashed) {
           sphere.material.color = new THREE.Color(
             Math.random(),
             Math.random(),
             Math.random()
           );
+        }
+
+        // 다른 구체와의 충돌 검사
+        for (let i = 1 + index; i < sphereRefs.current.children.length; i++) {
+          const otherSphere = sphereRefs.current.children[i];
+          if (otherSphere instanceof THREE.Mesh) {
+            const otherRadius = otherSphere.geometry.parameters.radius * otherSphere.scale.x;
+            const dis = sphere.position.distanceTo(otherSphere.position);
+
+            if (dis < sphereSize + otherRadius) {
+              // 충돌시 접점 기준 반대 방향으로 벡터 설정
+              const collisionNormal = new THREE.Vector3()
+                .subVectors(sphere.position, otherSphere.position)
+                .normalize().multiplyScalar(speed);
+
+              // 속도 벡터 반전
+              velocity.set(collisionNormal.x, collisionNormal.y, 0);
+              // 충돌한 구체도 반대 방향으로 속도 벡터 반전
+              velocitiesRef.current[i].set(
+                -1 * collisionNormal.x,
+                -1 * collisionNormal.y,
+                -1 * collisionNormal.z
+              );
+            }
+          }
         }
       }
     });

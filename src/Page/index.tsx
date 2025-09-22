@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <main className="w-full h-full">
       <Routes>
-        <Route path="/" element={<VehicleTest />} />
+        <Route path="/" element={<SphereTest />} />
         <Route path="/vehicle" element={<VehicleTest />} />
         <Route path="/sphere" element={<SphereTest />} />
       </Routes>
