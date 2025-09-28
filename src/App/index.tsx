@@ -3,7 +3,7 @@ import Page from "../Page";
 import "./style/global.css";
 import Header from "./ui/Header";
 
-const App = () => {
+const App = (): React.ReactElement => {
   return (
     <div className=" w-full h-full">
       <BrowserRouter>

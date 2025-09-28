@@ -7,7 +7,7 @@ type UseColorChangeProps = {
   objects: GLTF; // GLTF는 scene 프로퍼티를 가지고 있음
   cameraControlsRef: React.RefObject<CameraControls>;
 };
-const useColorChange = (props: UseColorChangeProps) => {
+const useColorChange = (props: UseColorChangeProps): [() => void] => {
   const { objects, cameraControlsRef } = props;
   const { raycaster, pointer, camera } = useThree();
   const colorChangeClickHandler = () => {

@@ -5,7 +5,7 @@ type GetRandomNonZeroProps = {
   max?: number;
 };
 
-const getRandomNonZero = (props: GetRandomNonZeroProps) => {
+const getRandomNonZero = (props: GetRandomNonZeroProps): number => {
   const { min = 0.5, max = 4.5 } = props;
   return Math.random() > 0.5
     ? THREE.MathUtils.randFloat(min, max) // 양수

@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import VehicleTest from "./VehicleTest";
 import SphereTest from "./SphereTest";
 
-const Page = () => {
+const Page = (): React.ReactElement => {
   return (
     <main className="w-full h-full">
       <Routes>

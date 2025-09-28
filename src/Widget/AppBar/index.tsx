@@ -7,7 +7,7 @@ import {
 } from "@/Shared/shadcn/components/ui/menubar"
 import { useNavigate } from "react-router-dom";
 
-const AppBar = () => {
+const AppBar = (): React.ReactElement => {
   const navigate = useNavigate();
   return (
     <Menubar>

@@ -6,7 +6,7 @@ import { CameraControls, ContactShadows } from "@react-three/drei";
 import useColorChange from "./model/useColorChange";
 import useMaterialInit from "./model/useMaterialInit";
 
-const Vehicle = () => {
+const Vehicle = (): React.ReactElement => {
   const vehicle = useLoader(
     GLTFLoader,
     "/3dModel/vehicle.glb"

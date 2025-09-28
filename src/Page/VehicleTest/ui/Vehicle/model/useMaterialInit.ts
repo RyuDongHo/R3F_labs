@@ -5,7 +5,7 @@ type UseMaterialInitProps = {
   GLTFRef: React.RefObject<THREE.Group>;
 };
 
-const useMaterialInit = (props: UseMaterialInitProps) => {
+const useMaterialInit = (props: UseMaterialInitProps): void => {
   const { GLTFRef } = props;
   useEffect(() => {
     GLTFRef.current.children.forEach((child) => {
