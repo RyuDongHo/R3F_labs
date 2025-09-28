@@ -2,6 +2,7 @@ import getRandomNonZero from "@/Shared/lib/getRandomNonZeroFloat";
 import { useFrame } from "@react-three/fiber";
 import React from "react";
 import * as THREE from "three";
+import reflectVelocity from "../lib/reflectVelocity";
 
 type UseSphereMovementProps = {
   sphereRefs: React.RefObject<THREE.Group>;
@@ -56,39 +57,42 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
         let isCrashed = false;
         // 박스 경계 체크 및 방향 전환, 위치 보정
         if (
-          pos.x > boxCenter.x + boxSize.x / 2 - sphereSize / 2 ||
-          pos.x < boxCenter.x - boxSize.x / 2 + sphereSize / 2
+          pos.x >= boxCenter.x + boxSize.x / 2 - sphereSize / 2 ||
+          pos.x <= boxCenter.x - boxSize.x / 2 + sphereSize / 2
         ) {
-          velocity.x = -velocity.x;
           // 경계 내부로 위치 보정
           pos.x = Math.max(
             boxCenter.x - boxSize.x / 2 + sphereSize / 2,
             Math.min(boxCenter.x + boxSize.x / 2 - sphereSize / 2, pos.x)
           );
+          const wallNormal = new THREE.Vector3(pos.x > 0 ? -1 : 1, 0, 0); // 왼쪽 벽의 법선
+          velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
           isCrashed = true;
         }
         if (
-          pos.y > boxCenter.y + boxSize.y / 2 - sphereSize / 2 ||
-          pos.y < boxCenter.y - boxSize.y / 2 + sphereSize / 2
+          pos.y >= boxCenter.y + boxSize.y / 2 - sphereSize / 2 ||
+          pos.y <= boxCenter.y - boxSize.y / 2 + sphereSize / 2
         ) {
-          velocity.y = -velocity.y;
           // 경계 내부로 위치 보정
           pos.y = Math.max(
             boxCenter.y - boxSize.y / 2 + sphereSize / 2,
             Math.min(boxCenter.y + boxSize.y / 2 - sphereSize / 2, pos.y)
           );
+          const wallNormal = new THREE.Vector3(0, pos.y > 0 ? -1 : 1, 0); // 아래 벽의 법선
+          velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
           isCrashed = true;
         }
         if (
-          pos.z > boxCenter.z + boxSize.z / 2 - sphereSize / 2 ||
-          pos.z < boxCenter.z - boxSize.z / 2 + sphereSize / 2
+          pos.z >= boxCenter.z + boxSize.z / 2 - sphereSize / 2 ||
+          pos.z <= boxCenter.z - boxSize.z / 2 + sphereSize / 2
         ) {
-          velocity.z = -velocity.z;
           // 경계 내부로 위치 보정
           pos.z = Math.max(
             boxCenter.z - boxSize.z / 2 + sphereSize / 2,
             Math.min(boxCenter.z + boxSize.z / 2 - sphereSize / 2, pos.z)
           );
+          const wallNormal = new THREE.Vector3(0, 0, pos.z > 0 ? -1 : 1); // 앞쪽 벽의 법선
+          velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
           isCrashed = true;
         }
         if (isCrashed) {

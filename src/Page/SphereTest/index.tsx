@@ -1,9 +1,12 @@
 import { Canvas } from "@react-three/fiber";
 import Sphere from "./ui/Sphere";
 import useCameraPosition from "./model/useCameraPosition";
+import React from "react";
 const SphereTest = () => {
   // 황금비율 기반 카메라 포지션 설정
   const cameraPosistion = useCameraPosition();
+  // 마우스 오버 상태
+  const [isPointerEnter, setIsPointerEnter] = React.useState<boolean>(false);
   return (
     <main className=" w-full h-full flex flex-col items-center justify-end pt-8 gap-2">
       {/* Title */}
@@ -16,8 +19,10 @@ const SphereTest = () => {
           Pushing Boundaries. Creating Tomorrow.
         </p>
       </div>
-      <div className=" flex justify-center items-center w-full h-[calc(86%-128px)]">
+      <div className=" flex justify-center items-center w-full h-[calc(86%-128px)] border border-red-500">
         <Canvas
+          onPointerEnter={() => setIsPointerEnter(true)}
+          onPointerLeave={() => setIsPointerEnter(false)}
           className=" rounded-3xl"
           shadows
           camera={{
@@ -28,7 +33,7 @@ const SphereTest = () => {
           }}
         >
           <color attach="background" args={["#151616"]} />
-          <Sphere />
+          <Sphere isPointerEnter={isPointerEnter} />
         </Canvas>
       </div>
       <div className="p-3 w-full flex justify-center">SCROLL TO SEE MORE</div>

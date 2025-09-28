@@ -7,12 +7,16 @@ type UseRayCasterEffectProps = {
   size: THREE.Vector3;
   repelRadius: number;
   repelStrength: number;
+  effectActive: boolean;
 };
 
 const useRayCasterEffect = (props: UseRayCasterEffectProps) => {
-  const { sphereGroupRef, center, size, repelRadius, repelStrength } = props;
+  const { sphereGroupRef, center, size, repelRadius, repelStrength, effectActive } = props;
   const { pointer, camera, raycaster } = useThree();
   useFrame((_, delta) => {
+    // effectActive가 false면 효과 비활성화
+    if (!effectActive) return;
+    
     raycaster.setFromCamera(pointer, camera);
     if (!sphereGroupRef.current) return;
 
@@ -50,7 +54,7 @@ const useRayCasterEffect = (props: UseRayCasterEffectProps) => {
 
         // 경계 내로 클램프 (구 반지름 고려)
         const radius =
-          ((sphere.geometry as THREE.SphereGeometry).parameters.radius ?? 0.8) *
+          (sphere.geometry as THREE.SphereGeometry).parameters.radius *
           sphere.scale.x;
         pos.x = Math.max(
           center.x - size.x / 2 + radius,

@@ -4,16 +4,21 @@ import useSphereMovement from "./model/useSphereMovement";
 import getRandomNonZero from "@/Shared/lib/getRandomNonZeroFloat";
 import useRayCasterEffect from "./model/useRayCasterEffect";
 
-const Sphere = React.memo(() => {
+type SphereProps = {
+  isPointerEnter: boolean;
+};
+
+const Sphere = (props: SphereProps) => {
+  const { isPointerEnter } = props;
   const sphereGroupRef = React.useRef<THREE.Group>(null!);
   const center = new THREE.Vector3(0, 0, 0);
   const size = new THREE.Vector3(20, 20, 20);
   const repelRadius = 8; // 반경 내에서만 밀어내기
-  const repelStrength = 30; // 힘의 세기(거리/초 기준)
+  const repelStrength = 50; // 힘의 세기(거리/초 기준)
 
   // 구체 초기 위치 설정
   const spherePositions = React.useMemo(() => {
-    return Array.from({ length: 50 }, () => [
+    return Array.from({ length: 30 }, () => [
       getRandomNonZero({
         min: (-1 * size.x) / 2 + 1,
         max: size.x / 2 - 1,
@@ -43,6 +48,7 @@ const Sphere = React.memo(() => {
     size,
     repelRadius,
     repelStrength,
+    effectActive: isPointerEnter,
   });
 
   return (
@@ -53,7 +59,6 @@ const Sphere = React.memo(() => {
         target-position={center}
         intensity={2}
       />
-
       <group ref={sphereGroupRef}>
         {spherePositions.map((position, index) => {
           return (
@@ -83,6 +88,6 @@ const Sphere = React.memo(() => {
       />
     </>
   );
-});
+};
 
 export default Sphere;
