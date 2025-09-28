@@ -21,7 +21,7 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
     if (sphereRefs.current.children.length < 1) return;
     // 속도 배열 초기화
     velocitiesRef.current = [];
-    // 구체 초기값 설정 (위치, 속도)
+    // 구체 초기값 설정 (크기, 속도)
     sphereRefs.current.children.forEach((sphere, index) => {
       if (sphere instanceof THREE.Mesh) {
         // 크기 랜덤 설정
