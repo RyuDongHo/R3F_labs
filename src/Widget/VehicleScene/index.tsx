@@ -3,7 +3,7 @@ import Vehicle from "./ui/Vehicle";
 
 const VehicleScene = (): React.ReactElement => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[100vh]">
       <Canvas
         shadows
         camera={{ fov: 90, position: [5, 5, 5], near: 0.1, far: 1000 }}

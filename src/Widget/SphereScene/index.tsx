@@ -1,0 +1,41 @@
+import { Canvas } from "@react-three/fiber";
+import Spheres from "./ui/Spheres";
+import useCameraPosition from "./model/useCameraPosition";
+import React from "react";
+import useColorPalette from "./model/useColorPalette";
+const SphereScene = (): React.ReactElement => {
+  // 황금비율 기반 카메라 포지션 설정
+  const cameraPosistion = useCameraPosition();
+  // 마우스 오버 상태
+  const [isPointerEnter, setIsPointerEnter] = React.useState<boolean>(false);
+  // 색상 팔레트
+  const [colorPalette, changeColorPalette] = useColorPalette();
+
+  return (
+    <>
+      {/* Canvas with Spheres */}
+      <Canvas
+        onPointerEnter={() => setIsPointerEnter(true)}
+        onPointerLeave={() => setIsPointerEnter(false)}
+        onClick={changeColorPalette}
+        className=" w-full h-[calc(86%-128px)] rounded-3xl cursor-pointer"
+        shadows
+        camera={{
+          fov: 90,
+          near: 0.1,
+          far: 1000,
+          position: cameraPosistion,
+        }}
+      >
+        <color attach="background" args={["#151616"]} />
+        <Spheres
+          isPointerEnter={isPointerEnter}
+          sphereCount={40}
+          colorPalette={colorPalette}
+        />
+      </Canvas>
+    </>
+  );
+};
+
+export default SphereScene;

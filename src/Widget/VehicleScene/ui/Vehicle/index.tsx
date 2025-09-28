@@ -21,13 +21,13 @@ const Vehicle = (): React.ReactElement => {
   return (
     <>
       <ambientLight intensity={0.5} />
-      <CameraControls
+      {/* <CameraControls
         ref={cameraControlsRef}
         dollyToCursor={true}
         minDistance={6}
         maxDistance={12}
         maxPolarAngle={Math.PI / 2}
-      />
+      /> */}
       <directionalLight
         ref={directionalLightRef}
         position={[7, 7, 7]}

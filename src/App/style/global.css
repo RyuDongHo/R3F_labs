@@ -173,3 +173,13 @@ html, body, #root{
     @apply bg-background text-foreground;
   }
 }
+
+/* 스크롤바 숨김 */
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
