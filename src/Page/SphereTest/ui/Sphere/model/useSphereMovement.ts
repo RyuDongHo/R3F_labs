@@ -14,6 +14,8 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
 
   // 각 구체의 속도를 저장하는 ref
   const velocitiesRef = React.useRef<THREE.Vector3[]>([]);
+  // 움직임 속도
+  const speed = 1.5;
 
   React.useEffect(() => {
     if (sphereRefs.current.children.length < 1) return;
@@ -46,10 +48,8 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
         if (velocity.length() < 10) {
           velocity.multiplyScalar(1.02);
         }
-        // 움직임 속도
-        const speed = 2.5;
 
-        // 먼저 위치 업데이트
+        // 위치 업데이트
         const moveVec = velocity.clone().multiplyScalar(delta * speed);
         pos.add(moveVec);
 
@@ -105,7 +105,7 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
           if (otherSphere instanceof THREE.Mesh) {
             const otherRadius =
               otherSphere.geometry.parameters.radius * otherSphere.scale.x;
-            let dis = sphere.position.distanceTo(otherSphere.position);
+            const dis = sphere.position.distanceTo(otherSphere.position);
 
             if (dis < sphereSize + otherRadius) {
               // 충돌시 접점 기준 반대 방향으로 벡터 설정
@@ -130,12 +130,10 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
               );
 
               // 충돌한 구체 위치 보정
-              while (dis < sphereSize + otherRadius) {
-                sphere.position.add(
-                  collisionNormal.clone().multiplyScalar(delta * speed)
-                );
-                dis = sphere.position.distanceTo(otherSphere.position);
-              }
+              const overlap = sphereSize + otherRadius - dis;
+              sphere.position.add(
+                collisionNormal.clone().multiplyScalar(overlap)
+              );
             }
           }
         }

@@ -8,10 +8,54 @@ html, body, #root{
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #F0F1FA;
+  background: linear-gradient(
+    45deg,
+    #F0F2F5,
+    #E8EDF2,
+    #F5F8FA,
+    #E6F1F7,
+    #F2F6F8,
+    #DFE9ED,
+    #F7FAFB
+  );
+  background-size: 600% 600%;
+  animation: dynamicWave 10s ease-in-out infinite;
+}
+
+@keyframes dynamicWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 #root{
-  padding: 32px 64px 0px 64px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+@media (min-width: 768px) {
+  #root {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #root {
+    padding-left: 82px;
+    padding-right: 82px;
+  }
 }
 
 @theme inline {
