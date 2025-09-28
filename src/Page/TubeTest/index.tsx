@@ -12,7 +12,7 @@ const TubeTest = (): React.ReactElement => {
   for(let i = 0; i < count; i++) {
     const x =  i / division;
     const sin = Math.sin(THREE.MathUtils.degToRad(i)) * amplitude;
-    const cos = Math.cos(THREE.MathUtils.degToRad(i)) * amplitude;
+    //const cos = Math.cos(THREE.MathUtils.degToRad(i)) * amplitude;
     points.push(new THREE.Vector3(x - (count / division / 2), sin, 0));
   }
   return (
