@@ -4,13 +4,13 @@ import useSphereMovement from "./model/useSphereMovement";
 import useRayCasterEffect from "./model/useRayCasterEffect";
 import useInitSpheres from "./model/useInitSpheres";
 
-type SphereProps = {
+type SpheresProps = {
   isPointerEnter: boolean;
   sphereCount: number;
   colorPalette: "red" | "blue" | "green";
 };
 
-const Sphere = (props: SphereProps) => {
+const Spheres = (props: SpheresProps): React.ReactElement => {
   const { isPointerEnter, sphereCount, colorPalette } = props;
   const sphereGroupRef = React.useRef<THREE.Group>(null!);
   const center = new THREE.Vector3(0, 0, 0);
@@ -81,4 +81,4 @@ const Sphere = (props: SphereProps) => {
   );
 };
 
-export default Sphere;
+export default Spheres;

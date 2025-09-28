@@ -16,9 +16,9 @@ const AppBar = (): React.ReactElement => {
         <MenubarTrigger>Labs</MenubarTrigger>
         <MenubarContent>
           {/* 차량 테스트 */}
-          <MenubarItem onClick={() => navigate('/vehicle')}>
+          {/* <MenubarItem onClick={() => navigate('/vehicle')}>
             Vehicle Test
-          </MenubarItem>
+          </MenubarItem> */}
           {/* 구체 테스트 */}
           <MenubarItem onClick={() => navigate('/sphere')}>
             Sphere Test

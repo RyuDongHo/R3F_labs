@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import Vehicle from "./ui/Vehicle";
 
-const VehicleTest = (): React.ReactElement => {
+const VehicleScene = (): React.ReactElement => {
   return (
     <div className="w-full h-full">
       <Canvas
@@ -14,4 +14,4 @@ const VehicleTest = (): React.ReactElement => {
     </div>
   );
 };
-export default VehicleTest;
+export default VehicleScene;

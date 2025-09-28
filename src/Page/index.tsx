@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import VehicleTest from "./VehicleTest";
-import SphereTest from "./SphereTest";
+import VehicleScene from "./VehicleScene";
+import SphereScene from "./SphereScene";
 
 const Page = (): React.ReactElement => {
   return (
     <main className="w-full h-full">
       <Routes>
-        <Route path="/" element={<SphereTest />} />
-        <Route path="/vehicle" element={<VehicleTest />} />
-        <Route path="/sphere" element={<SphereTest />} />
+        <Route path="/" element={<SphereScene />} />
+        <Route path="/vehicle" element={<VehicleScene />} />
+        <Route path="/sphere" element={<SphereScene />} />
       </Routes>
     </main>
   );
