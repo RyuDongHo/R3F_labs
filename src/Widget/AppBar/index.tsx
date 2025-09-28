@@ -20,8 +20,8 @@ const AppBar = (): React.ReactElement => {
             Vehicle Test
           </MenubarItem> */}
           {/* 구체 테스트 */}
-          <MenubarItem onClick={() => navigate('/sphere')}>
-            Sphere Test
+          <MenubarItem onClick={() => navigate('/')}>
+            Home
           </MenubarItem>
           {/* 튜브 테스트 */}
           <MenubarItem onClick={() => navigate('/tube')}>
