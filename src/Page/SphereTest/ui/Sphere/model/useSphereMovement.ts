@@ -10,7 +10,7 @@ type UseSphereMovementProps = {
   boxSize: THREE.Vector3;
 };
 
-const useSphereMovement = (props: UseSphereMovementProps) => {
+const useSphereMovement = (props: UseSphereMovementProps): void => {
   const { sphereRefs, boxCenter, boxSize } = props;
 
   // 각 구체의 속도를 저장하는 ref
@@ -53,8 +53,6 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
         // 위치 업데이트
         const moveVec = velocity.clone().multiplyScalar(delta * speed);
         pos.add(moveVec);
-
-        let isCrashed = false;
         // 박스 경계 체크 및 방향 전환, 위치 보정
         if (
           pos.x >= boxCenter.x + boxSize.x / 2 - sphereSize / 2 ||
@@ -67,7 +65,6 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
           );
           const wallNormal = new THREE.Vector3(pos.x > 0 ? -1 : 1, 0, 0); // 왼쪽 벽의 법선
           velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
-          isCrashed = true;
         }
         if (
           pos.y >= boxCenter.y + boxSize.y / 2 - sphereSize / 2 ||
@@ -80,7 +77,6 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
           );
           const wallNormal = new THREE.Vector3(0, pos.y > 0 ? -1 : 1, 0); // 아래 벽의 법선
           velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
-          isCrashed = true;
         }
         if (
           pos.z >= boxCenter.z + boxSize.z / 2 - sphereSize / 2 ||
@@ -93,14 +89,6 @@ const useSphereMovement = (props: UseSphereMovementProps) => {
           );
           const wallNormal = new THREE.Vector3(0, 0, pos.z > 0 ? -1 : 1); // 앞쪽 벽의 법선
           velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
-          isCrashed = true;
-        }
-        if (isCrashed) {
-          sphere.material.color = new THREE.Color(
-            Math.random(),
-            Math.random(),
-            Math.random()
-          );
         }
 
         // 다른 구체와의 충돌 검사
