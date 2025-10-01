@@ -1,0 +1,26 @@
+# robots.txt for Interactive 3D Web Experience
+# https://www.robotstxt.org/
+
+# Allow all web crawlers to access all content
+User-agent: *
+Allow: /
+
+# Disallow crawling of development/build files
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /.git/
+Disallow: /.vscode/
+Disallow: /src/
+
+# Allow crawling of essential files
+Allow: /index.html
+Allow: /favicon.ico
+Allow: /*.css
+Allow: /*.js
+Allow: /assets/
+
+# Sitemap location (if you create one in the future)
+# Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl-delay for polite crawling (optional)
+# Crawl-delay: 1
