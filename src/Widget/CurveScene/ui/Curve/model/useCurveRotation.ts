@@ -4,9 +4,9 @@ import React from "react";
 
 type UseCurveProps = {
   curveGroupRef: React.RefObject<THREE.Group>;
-  text?: string;
-  amplitude?: number;
-  division?: number;
+  text: string;
+  amplitude: number;
+  division: number;
 };
 
 const useCurve = (
@@ -16,12 +16,7 @@ const useCurve = (
   pointsGroup: THREE.Vector3[][],
   points: THREE.Vector3[]
 ] => {
-  const {
-    curveGroupRef,
-    text = "creative coding explorations",
-    amplitude = 20,
-    division = 5,
-  } = props;
+  const { curveGroupRef, text, amplitude, division } = props;
 
   const count = 360;
   const curveGroupPosition = new THREE.Vector3(-(count / division) / 2, 0, 0);
@@ -41,10 +36,10 @@ const useCurve = (
     pointsGroup.push(curvePoints);
   }
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (curveGroupRef.current) {
       curveGroupRef.current.children.forEach((curve) => {
-        curve.rotation.x += 0.01;
+        curve.rotation.x += delta;
 
         curve.children.forEach((text) => {
           const pos = new THREE.Vector3();

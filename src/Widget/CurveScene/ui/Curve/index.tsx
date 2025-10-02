@@ -3,18 +3,28 @@ import { Text, Billboard } from "@react-three/drei";
 import React from "react";
 import useCurve from "./model/useCurveRotation";
 
-const Curve = (): React.ReactElement => {
-  const text = "creative coding explorations";
-  const amplitude = 20;
-  const division = 5;
+type CurveProps = {
+  text?: string;
+  amplitude?: number;
+  division?: number;
+};
+
+const Curve = (props: CurveProps): React.ReactElement => {
+  const {
+    text = "creative coding explorations",
+    amplitude = 20,
+    division = 5,
+  } = props;
   const curveGroupRef = React.useRef<THREE.Group>(null!);
 
+  // Curve position and points
   const [curveGroupPosition, pointsGroup] = useCurve({
     curveGroupRef,
     text,
     amplitude,
     division,
   });
+
   return (
     <>
       <group position={curveGroupPosition} ref={curveGroupRef}>
