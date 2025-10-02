@@ -6,18 +6,19 @@ import * as THREE from "three";
  * Canvas 배경색을 천천히 변화시키는 커스텀 훅
  */
 const useAnimatedBackground = () => {
-  const [currentColor, setCurrentColor] = React.useState<string>("#151616");
-  const colorRef = React.useRef<THREE.Color>(new THREE.Color("#151616"));
-  const targetColorRef = React.useRef<THREE.Color>(new THREE.Color("#151616"));
+  const [currentColor, setCurrentColor] = React.useState<string>("#0a0a0a");
+  const colorRef = React.useRef<THREE.Color>(new THREE.Color("#0a0a0a"));
+  const targetColorRef = React.useRef<THREE.Color>(new THREE.Color("#0a0a0a"));
   const timeRef = React.useRef<number>(0);
 
-  // 배경색 후보들 (어두운 톤들)
+  // 배경색 후보들 (매우 어두운 톤들)
   const backgroundColors = React.useMemo(() => [
-    "#151616", // 원래 색상 (어두운 회색)
-    "#1a1a2e", // 어두운 남색
-    "#16213e", // 어두운 파랑
-    "#1e1e1e", // 어두운 회색
-    "#2d1b1b", // 어두운 갈색
+    "#0a0a0a", // 매우 어두운 회색
+    "#0d0d1f", // 매우 어두운 남색
+    "#0b1125", // 매우 어두운 파랑
+    "#101010", // 매우 어두운 회색
+    "#1a0f0f", // 매우 어두운 갈색
+    "#0f1419", // 매우 어두운 청록색
   ], []);
 
   React.useEffect(() => {
