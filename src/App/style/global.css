@@ -9,34 +9,35 @@ html, body, #root{
   margin: 0;
   padding: 0;
   background: linear-gradient(
-    45deg,
-    #F0F1F5,
-    #E8EDF2,
-    #F5F8FA,
-    #E6F1F7,
-    #F2F6F8,
-    #DFE9ED,
-    #F7FAFB
+    -45deg,
+    #F8F9FA,
+    #F6F7F8,
+    #F9FAFB,
+    #F7F8F9,
+    #FAFBFC,
+    #F8F9FA,
+    #F9FAFB,
+    #F8F9FA
   );
-  background-size: 600% 600%;
+  background-size: 400% 400%;
   animation: dynamicWave 10s ease-in-out infinite;
 }
 
 @keyframes dynamicWave {
   0% {
-    background-position: 0% 50%;
+    background-position: 0% 0%;
   }
   25% {
-    background-position: 100% 50%;
+    background-position: 100% 0%;
   }
   50% {
     background-position: 100% 100%;
   }
   75% {
-    background-position: 50% 100%;
+    background-position: 0% 100%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0% 0%;
   }
 }
 #root{
