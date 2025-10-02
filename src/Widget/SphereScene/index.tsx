@@ -3,6 +3,10 @@ import Spheres from "./ui/Spheres";
 import useCameraPosition from "./model/useCameraPosition";
 import React from "react";
 import useColorPalette from "./model/useColorPalette";
+import * as THREE from "three";
+import getIsDesktop from "@/Shared/lib/getIsDesktop";
+import useClickSound from "./model/useClickSound";
+import AnimatedBackground from "../../Shared/components/AnimatedBackground";
 const SphereScene = (): React.ReactElement => {
   // 황금비율 기반 카메라 포지션 설정
   const cameraPosistion = useCameraPosition();
@@ -10,14 +14,20 @@ const SphereScene = (): React.ReactElement => {
   const [isPointerEnter, setIsPointerEnter] = React.useState<boolean>(false);
   // 색상 팔레트
   const [colorPalette, changeColorPalette] = useColorPalette();
+  // 클릭 사운드
+  const playClickSound = useClickSound();
 
+  const isDesktop = getIsDesktop();
   return (
     <>
       {/* Canvas with Spheres */}
       <Canvas
         onPointerEnter={() => setIsPointerEnter(true)}
         onPointerLeave={() => setIsPointerEnter(false)}
-        onClick={changeColorPalette}
+        onClick={() => {
+          changeColorPalette();
+          playClickSound();
+        }}
         className=" w-full h-[calc(86%-128px)] rounded-3xl cursor-pointer"
         shadows
         camera={{
@@ -27,11 +37,18 @@ const SphereScene = (): React.ReactElement => {
           position: cameraPosistion,
         }}
       >
-        <color attach="background" args={["#151616"]} />
+        <AnimatedBackground />
         <Spheres
           isPointerEnter={isPointerEnter}
-          sphereCount={40}
+          sphereCount={isDesktop ? 60 : 30}
           colorPalette={colorPalette}
+          boxSize={
+            isDesktop
+              ? new THREE.Vector3(25, 25, 27)
+              : new THREE.Vector3(20, 20, 20)
+          }
+          center={isDesktop && new THREE.Vector3(-3, 0, -2)}
+          boxWireFrame={false}
         />
       </Canvas>
     </>

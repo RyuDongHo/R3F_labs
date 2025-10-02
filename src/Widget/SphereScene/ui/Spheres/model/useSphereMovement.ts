@@ -63,7 +63,11 @@ const useSphereMovement = (props: UseSphereMovementProps): void => {
             boxCenter.x - boxSize.x / 2 + sphereSize / 2,
             Math.min(boxCenter.x + boxSize.x / 2 - sphereSize / 2, pos.x)
           );
-          const wallNormal = new THREE.Vector3(pos.x > 0 ? -1 : 1, 0, 0); // 왼쪽 벽의 법선
+          const wallNormal = new THREE.Vector3(
+            pos.x > boxCenter.x ? -1 : 1,
+            0,
+            0
+          ); // 벽의 법선
           velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
         }
         if (
@@ -75,7 +79,11 @@ const useSphereMovement = (props: UseSphereMovementProps): void => {
             boxCenter.y - boxSize.y / 2 + sphereSize / 2,
             Math.min(boxCenter.y + boxSize.y / 2 - sphereSize / 2, pos.y)
           );
-          const wallNormal = new THREE.Vector3(0, pos.y > 0 ? -1 : 1, 0); // 아래 벽의 법선
+          const wallNormal = new THREE.Vector3(
+            0,
+            pos.y > boxCenter.y ? -1 : 1,
+            0
+          ); // 벽의 법선
           velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
         }
         if (
@@ -87,7 +95,11 @@ const useSphereMovement = (props: UseSphereMovementProps): void => {
             boxCenter.z - boxSize.z / 2 + sphereSize / 2,
             Math.min(boxCenter.z + boxSize.z / 2 - sphereSize / 2, pos.z)
           );
-          const wallNormal = new THREE.Vector3(0, 0, pos.z > 0 ? -1 : 1); // 앞쪽 벽의 법선
+          const wallNormal = new THREE.Vector3(
+            0,
+            0,
+            pos.z > boxCenter.z ? -1 : 1
+          ); // 벽의 법선
           velocity.copy(reflectVelocity({ velocity, normal: wallNormal }));
         }
 
