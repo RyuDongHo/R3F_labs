@@ -5,18 +5,28 @@ import useRayCasterEffect from "./model/useRayCasterEffect";
 import useInitSpheres from "./model/useInitSpheres";
 
 type SpheresProps = {
-  isPointerEnter: boolean;
-  sphereCount: number;
-  colorPalette: "red" | "blue" | "green";
+  isPointerEnter?: boolean;
+  sphereCount?: number;
+  colorPalette?: "red" | "blue" | "green";
+  center?: THREE.Vector3;
+  boxSize?: THREE.Vector3;
+  repelRadius?: number;
+  repelStrength?: number;
+  boxWireFrame?: boolean;
 };
 
 const Spheres = (props: SpheresProps): React.ReactElement => {
-  const { isPointerEnter, sphereCount, colorPalette } = props;
+  const {
+    isPointerEnter = false,
+    sphereCount = 40,
+    colorPalette = "red",
+    center = new THREE.Vector3(0, 0, 0),
+    boxSize = new THREE.Vector3(20, 20, 20),
+    repelRadius = 8,
+    repelStrength = 50,
+    boxWireFrame = false,
+  } = props;
   const sphereGroupRef = React.useRef<THREE.Group>(null!);
-  const center = new THREE.Vector3(0, 0, 0);
-  const boxSize = new THREE.Vector3(20, 20, 20);
-  const repelRadius = 8; // 반경 내에서만 밀어내기
-  const repelStrength = 50; // 힘의 세기(거리/초 기준)
 
   // 구체 초기 위치/색상 설정
   const [spherePositions, sphereColors] = useInitSpheres({
@@ -70,13 +80,12 @@ const Spheres = (props: SpheresProps): React.ReactElement => {
         })}
       </group>
 
-      <boxHelper
-        args={[
-          new THREE.Mesh(new THREE.BoxGeometry(boxSize.x, boxSize.y, boxSize.z)),
-          "white",
-        ]}
-        position={center}
-      />
+      {boxWireFrame && (
+        <mesh position={center}>
+          <boxGeometry args={[boxSize.x, boxSize.y, boxSize.z]} />
+          <meshBasicMaterial wireframe color="white" />
+        </mesh>
+      )}
     </>
   );
 };
