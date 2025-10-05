@@ -36,7 +36,7 @@ const Curve = (props: CurveProps): React.ReactElement => {
             >
               {points?.map((point, i) => (
                 <Billboard key={i} position={point}>
-                  <Text color={"white"} fontSize={2} fontWeight={"bold"}>
+                  <Text color={"black"} fontSize={2} fontWeight={"bold"}>
                     {text[i]}
                   </Text>
                 </Billboard>

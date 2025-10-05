@@ -6,7 +6,7 @@ const useColorPalette = (): [
 ] => {
   const [colorPalette, setColorPalette] = React.useState<
     "red" | "blue" | "green"
-  >("red");
+  >("blue");
 
   const changeColorPalette = () => {
     setColorPalette((prev) => {

@@ -16,10 +16,10 @@ const CurveScene = (): React.ReactElement => {
         }}
         className=" rounded-4xl"
       >
-        <color attach="background" args={["#151616"]} />
+        <color attach="background" args={["#F8F9FA"]} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <ambientLight intensity={0.5} />
-        <Curve text="vite react three drei tailwind zustand" />
+        <Curve text="Featured Work Things We made" />
       </Canvas>
     </>
   );

@@ -2,7 +2,9 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
+@theme{
+  --base-background: #F8F9FA;
+}
 html, body, #root{
   width: 100%;
   height: 100vh;
@@ -183,4 +185,13 @@ html, body, #root{
 * {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none; /* Firefox */
+}
+
+/* 스크롤바 숨김 유틸리티 클래스 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

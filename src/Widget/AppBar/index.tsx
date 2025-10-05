@@ -4,46 +4,53 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarTrigger,
-} from "@/Shared/shadcn/components/ui/menubar"
-import { useNavigate } from "react-router-dom";
+} from "@/Shared/shadcn/components/ui/menubar";
+import React from "react";
+import useMusic from "./model/useMusic";
 
 const AppBar = (): React.ReactElement => {
-  const navigate = useNavigate();
+  const audioRef = React.useRef<HTMLAudioElement>(null!);
+  const [isPlaying, toggleMusic] = useMusic({ audioRef });
+
   return (
     <Menubar>
       {/* 테스트 목록 */}
       <MenubarMenu>
-        <MenubarTrigger>Labs</MenubarTrigger>
+        <MenubarTrigger>Contact</MenubarTrigger>
         <MenubarContent>
           {/* 차량 테스트 */}
           {/* <MenubarItem onClick={() => navigate('/vehicle')}>
             Vehicle Test
           </MenubarItem> */}
           {/* 구체 테스트 */}
-          <MenubarItem onClick={() => navigate('/')}>
-            Home
-          </MenubarItem>
-          {/* 튜브 테스트 */}
-          <MenubarItem onClick={() => navigate('/tube')}>
-            Tube Test
+          <MenubarItem
+            onClick={() => {
+              window.open("https://github.com/RyuDongHo", "_blank");
+            }}
+          >
+            Git
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
 
-      {/* 배경 선택 */}
+      {/* 배경 음악 선택 */}
       <MenubarMenu>
-        <MenubarTrigger>Background</MenubarTrigger>
+        <MenubarTrigger>Music {isPlaying ? "🎵" : "🔇"}</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>
-            Default
-          </MenubarItem>
-          <MenubarItem>
-            Night
+          <MenubarItem onClick={toggleMusic}>
+            {isPlaying ? "Off" : "On"}
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
+
+      {/* 숨겨진 오디오 요소 */}
+      <audio
+        ref={audioRef}
+        src="/music/In Dreamland by Chillpeach.mp3"
+        style={{ display: "none" }}
+      />
     </Menubar>
-  )
-}
+  );
+};
 
 export default AppBar;

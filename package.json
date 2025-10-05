@@ -20,6 +20,7 @@
     "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "gsap": "^3.13.0",
     "leva": "^0.10.0",
     "lucide-react": "^0.543.0",
     "path": "^0.12.7",
@@ -29,7 +30,8 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.13",
     "three": "^0.179.1",
-    "vercel": "^47.0.5"
+    "vercel": "^47.0.5",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

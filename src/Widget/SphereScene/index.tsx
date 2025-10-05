@@ -6,7 +6,6 @@ import useColorPalette from "./model/useColorPalette";
 import * as THREE from "three";
 import getIsDesktop from "@/Shared/lib/getIsDesktop";
 import useClickSound from "./model/useClickSound";
-import AnimatedBackground from "../../Shared/components/AnimatedBackground";
 const SphereScene = (): React.ReactElement => {
   // 황금비율 기반 카메라 포지션 설정
   const cameraPosistion = useCameraPosition();
@@ -37,7 +36,7 @@ const SphereScene = (): React.ReactElement => {
           position: cameraPosistion,
         }}
       >
-        <AnimatedBackground />
+        <color attach="background" args={["#151616"]} />
         <Spheres
           isPointerEnter={isPointerEnter}
           sphereCount={isDesktop ? 60 : 30}
