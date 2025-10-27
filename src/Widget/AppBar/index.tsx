@@ -5,13 +5,11 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/Shared/shadcn/components/ui/menubar";
+import useMusicStore from "@/Shared/zustand/useMusicStore";
 import React from "react";
-import useMusic from "./model/useMusic";
 
 const AppBar = (): React.ReactElement => {
-  const audioRef = React.useRef<HTMLAudioElement>(null!);
-  const [isPlaying, toggleMusic] = useMusic({ audioRef });
-
+  const {isPlaying, toggleMusic} = useMusicStore();
   return (
     <Menubar>
       {/* 테스트 목록 */}
@@ -42,13 +40,6 @@ const AppBar = (): React.ReactElement => {
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
-
-      {/* 숨겨진 오디오 요소 */}
-      <audio
-        ref={audioRef}
-        src="/music/In Dreamland by Chillpeach.mp3"
-        style={{ display: "none" }}
-      />
     </Menubar>
   );
 };

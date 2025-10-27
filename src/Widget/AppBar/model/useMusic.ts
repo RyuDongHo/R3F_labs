@@ -8,7 +8,7 @@ const useMusic = (
   props: UseMusicProps
 ): [isPlaying: boolean, toggleMusic: () => void] => {
   const { audioRef } = props;
-  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [isPlaying, setIsPlaying] = React.useState(true);
   React.useEffect(() => {
     if (audioRef.current) {
       audioRef.current.loop = true;

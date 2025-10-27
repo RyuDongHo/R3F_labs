@@ -42,22 +42,15 @@ html, body, #root{
     background-position: 0% 0%;
   }
 }
-#root{
-  padding-left: 16px;
-  padding-right: 16px;
-}
+
 
 @media (min-width: 768px) {
   #root {
-    padding-left: 32px;
-    padding-right: 32px;
   }
 }
 
 @media (min-width: 1024px) {
   #root {
-    padding-left: 82px;
-    padding-right: 82px;
   }
 }
 
