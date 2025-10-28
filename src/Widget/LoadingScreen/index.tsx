@@ -64,7 +64,7 @@ const LoadingScreen = ({ progress, onStart }: LoadingScreenProps): React.ReactEl
             onClick={handleStart}
             className="rounded-4xl cursor-pointer mt-8 px-12 py-4 text-2xl xl:text-3xl font-bold text-black bg-white hover:bg-gray-200 transition-colors duration-300 tracking-wider"
           >
-            LET's Joruney
+            LET's Journey
           </button>
         )}
       </div>
