@@ -20,7 +20,7 @@ const Main = (): React.ReactElement => {
           <p className=" xl:text-3xl font-[600]">Welcome to My WorkShop</p>
           <p className=" xl:text-3xl font-[600]">Welcome to My WorkShop</p>
         </div>
-        <SphereScene withCanvas={true} />
+        <SphereScene />
         <div className="p-3 w-full flex justify-center">SCROLL TO SEE MORE</div>
       </div>
 

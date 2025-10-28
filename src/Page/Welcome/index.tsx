@@ -9,7 +9,6 @@ import useMusicStore from "@/Shared/zustand/useMusicStore";
 const Welcome = (): React.ReactElement => {
   const { progress } = useProgress();
   const { toggleMusic } = useMusicStore();
-
   return (
     <main className="w-full h-full relative">
       <LoadingScreen progress={progress} onStart={toggleMusic} />

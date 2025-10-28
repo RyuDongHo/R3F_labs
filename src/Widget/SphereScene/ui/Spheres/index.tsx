@@ -13,6 +13,7 @@ type SpheresProps = {
   repelRadius?: number;
   repelStrength?: number;
   boxWireFrame?: boolean;
+  position: THREE.Vector3;
 };
 
 const Spheres = (props: SpheresProps): React.ReactElement => {
@@ -25,6 +26,7 @@ const Spheres = (props: SpheresProps): React.ReactElement => {
     repelRadius = 8,
     repelStrength = 50,
     boxWireFrame = false,
+    position = new THREE.Vector3(0, 0, 0),
   } = props;
   const sphereGroupRef = React.useRef<THREE.Group>(null!);
 
@@ -60,7 +62,7 @@ const Spheres = (props: SpheresProps): React.ReactElement => {
         target-position={center}
         intensity={2}
       />
-      <group ref={sphereGroupRef}>
+      <group ref={sphereGroupRef} position={position}>
         {spherePositions.map((position, index) => {
           return (
             <mesh key={index} position={position as [number, number, number]}>
