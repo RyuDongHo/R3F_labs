@@ -5,7 +5,6 @@ import { GLTFLoader } from "three/examples/jsm/Addons.js";
 import useInitSculpture from "./model/useInitSculpture";
 import useCameraMovement from "./model/useCameraMovement";
 import useLightMovement from "./model/useLightMovement";
-
 const AngelSculpture = (): React.ReactElement => {
   const angelSculpture = useLoader(GLTFLoader, "/3dModel/angel_sculpture.glb");
   const lightRef = React.useRef<THREE.PointLight>(null!);
@@ -24,6 +23,7 @@ const AngelSculpture = (): React.ReactElement => {
         intensity={1.2}
         decay={2}
         position={[0.6, 1.9, 0.71]}
+        color={"#e6f2ff"}
       />
       <primitive
         rotation={[-0.24, 3.01, -0.12]}

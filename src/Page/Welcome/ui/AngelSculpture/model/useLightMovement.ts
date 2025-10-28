@@ -11,7 +11,7 @@ type UseLightMovementProps = {
 const useLightMovement = (props: UseLightMovementProps): void => {
   const { lightRef, angelSculpture } = props;
   const [isDesktop] = getIsDesktop();
-  const lightDistance = isDesktop ? 0.5 : 0.2;
+  const lightDistance = isDesktop ? 0.5 : 0.9;
   useFrame((state, delta) => {
     // move the point light toward intersection (if available)
     if (lightRef.current && angelSculpture && angelSculpture.scene) {

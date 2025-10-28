@@ -2,7 +2,7 @@ import gsap from "gsap";
 import React from "react";
 
 type UseGsapEffectProps = {
-  fillRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
+  fillRefs: React.RefObject<(HTMLDivElement | null)[]>;
 };
 
 const useGsapEffect = (
