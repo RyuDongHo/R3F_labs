@@ -1,12 +1,20 @@
 import { useLoader } from "@react-three/fiber";
 import React from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
+import { GLTFLoader, DRACOLoader } from "three/examples/jsm/Addons.js";
 import useInitSculpture from "./model/useInitSculpture";
 import useCameraMovement from "./model/useCameraMovement";
 import useLightMovement from "./model/useLightMovement";
 const AngelSculpture = (): React.ReactElement => {
-  const angelSculpture = useLoader(GLTFLoader, "/3dModel/angel_sculpture.glb");
+  const angelSculpture = useLoader(
+    GLTFLoader,
+    "/3dModel/angel_sculpture.glb",
+    (loader) => {
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
+      loader.setDRACOLoader(dracoLoader);
+    }
+  );
   const lightRef = React.useRef<THREE.PointLight>(null!);
 
   useInitSculpture({ angelSculpture });

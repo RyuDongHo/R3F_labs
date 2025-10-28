@@ -7,7 +7,7 @@ import useMaterialInit from "./model/useMaterialInit";
 import React from "react";
 
 const Vehicle = (): React.ReactElement => {
-  const vehicle = useLoader(GLTFLoader, "/3dModel/vehicle.glb");
+  const vehicle = useLoader(GLTFLoader, "/3dModel/angel_sculpture.glb"); // 차량 모델 임시 제거
   const spotLightRef = React.useRef<THREE.SpotLight>(null!);
   const directionalLightRef = React.useRef<THREE.DirectionalLight>(null!);
   const GLTFRef = React.useRef<THREE.Group>(null!);
