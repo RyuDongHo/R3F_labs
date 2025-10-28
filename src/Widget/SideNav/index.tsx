@@ -1,25 +1,18 @@
 import React from "react";
 import useGsapEffect from "./model/useGsapEffect";
 
-const MENU_ITEMS = [
-  "ABOUT ME",
-  "CONTACT",
-  "PROJECTS",
-  "DESIGN",
-  "COLLECTIVE",
-  "FEATURES",
-  "ATRIUM",
-];
-
-const SideNav = (): React.ReactElement => {
+type SideNavProps = {
+  menu: [string, () => void][];
+};
+const SideNav = (props: SideNavProps): React.ReactElement => {
+  const {menu} = props;
   const fillRefs = React.useRef<(HTMLDivElement | null)[]>([]);
-
   const [handleMouseEnter, handleMouseLeave] = useGsapEffect({ fillRefs });
 
   return (
     <nav className="fixed right-4 xl:right-16 top-1/2 -translate-y-1/2">
       <ul className="flex flex-col gap-1 xl:gap-2">
-        {MENU_ITEMS.map((item, index) => (
+        {menu.map((item, index) => (
           <li
             key={`${item}-${index}`}
             onMouseEnter={() => handleMouseEnter(index)}
@@ -28,10 +21,10 @@ const SideNav = (): React.ReactElement => {
             onTouchEnd={() => handleMouseLeave(index)}
             className="cursor-pointer group"
           >
-            <div className="relative py-1">
+            <div onClick={item[1]} className="relative py-1">
               {/* Base text (gray) */}
               <span className="block text-2xl xl:text-6xl font-bold overflow-hidden text-gray-600/40 tracking-wider">
-                {item}
+                {item[0]}
               </span>
 
               {/* Fill text (white) - positioned absolutely */}
@@ -42,7 +35,7 @@ const SideNav = (): React.ReactElement => {
                 className="absolute top-0 left-0 w-0 h-full overflow-hidden"
               >
                 <span className="block text-2xl xl:text-6xl font-bold text-white tracking-wider whitespace-nowrap py-1">
-                  {item}
+                  {item[0]}
                 </span>
               </div>
             </div>

@@ -1,6 +1,11 @@
-const getGoldenCameraPosition = (): [number, number, number] => {
+type GetGoldenCameraPositionProps = {
+  baseDistance: number;
+};
+const getGoldenCameraPosition = (
+  props: GetGoldenCameraPositionProps
+): [number, number, number] => {
+  const { baseDistance } = props;
   const phi = 1.618; // 황금비율
-  const baseDistance = 8; // 기본 거리 (10 -> 8로 감소)
 
   if (typeof window !== "undefined") {
     // 모바일 (768px 미만) - 더 멀리, 황금비율 적용
