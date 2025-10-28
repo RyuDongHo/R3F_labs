@@ -46,9 +46,9 @@ const Welcome = (): React.ReactElement => {
           ["ABOUT ME", () => {}],
           ["PROJECTS", () => {}],
           [
-            "MY GITHUB",
+            "GIT",
             () => {
-              window.open("https://github.com/RyuDongHo", "_blank");
+              window.open("https://github.com/RyuDongHo/R3F_labs", "_blank");
             },
           ],
           [
