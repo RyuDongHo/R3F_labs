@@ -16,7 +16,6 @@ const Welcome = (): React.ReactElement => {
   const [scrollToSection] = useHorizontalScroll({ containerRef });
   const [isDesktop] = getIsDesktop();
 
-
   return (
     <main className="w-full h-full relative overflow-hidden">
       <LoadingScreen progress={progress} onStart={toggleMusic} />
@@ -46,6 +45,12 @@ const Welcome = (): React.ReactElement => {
         menu={[
           ["ABOUT ME", () => {}],
           ["PROJECTS", () => {}],
+          [
+            "MY GITHUB",
+            () => {
+              window.open("https://github.com/RyuDongHo", "_blank");
+            },
+          ],
           [
             "ANGEL LABs",
             () => {
