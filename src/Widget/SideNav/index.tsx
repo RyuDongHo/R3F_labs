@@ -10,7 +10,7 @@ const SideNav = (props: SideNavProps): React.ReactElement => {
   const [handleMouseEnter, handleMouseLeave] = useGsapEffect({ fillRefs });
 
   return (
-    <nav className="fixed right-4 xl:right-16 top-1/2 -translate-y-1/2">
+    <nav className="fixed right-4 xl:right-16 top-1/2 -translate-y-1/2 select-none">
       <ul className="flex flex-col gap-1 xl:gap-2">
         {menu.map((item, index) => (
           <li
