@@ -18,7 +18,7 @@ const Welcome = (): React.ReactElement => {
 
   return (
     <main className="w-full h-full relative overflow-hidden">
-      <LoadingScreen progress={progress} onStart={toggleMusic} />
+      <LoadingScreen progress={progress} onComplete={toggleMusic} />
 
       {/* 가로 스크롤 컨테이너 */}
       <div

@@ -1,72 +1,99 @@
 import React from "react";
-import gsap from "gsap";
+import { useGsapEffect } from "./model/useGsapEffect";
 
 interface LoadingScreenProps {
   progress: number;
-  onStart: () => void;
+  onComplete: () => void;
 }
 
-const LoadingScreen = ({ progress, onStart }: LoadingScreenProps): React.ReactElement | null => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const [shouldRender, setShouldRender] = React.useState(true);
-  const [isComplete, setIsComplete] = React.useState(false);
+export const LoadingScreen: React.FC<LoadingScreenProps> = (props) => {
+  const { progress, onComplete } = props;
+  const [isAnimationEnd, setIsAnimationEnd] = React.useState(false);
+  const {
+    preloaderRef,
+    headerRef,
+    copyRef,
+    imagesRef,
+    imageRefs,
+    endLoadingAnimation,
+  } = useGsapEffect({
+    onComplete: () => {
+      onComplete();
+      setIsAnimationEnd(true);
+    },
+  });
 
-  React.useEffect(() => {
-    if (progress === 100) {
-      setIsComplete(true);
-    }
-  }, [progress]);
+  const images = ["/img1.jpg", "/img2.jpg", "/img3.jpg"];
 
-  const handleStart = () => {
-    if (containerRef.current) {
-      gsap.to(containerRef.current, {
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.inOut",
-        onComplete: () => {
-          setShouldRender(false);
-          onStart();
-        },
-      });
-    }
-  };
-
-  if (!shouldRender) return null;
-
+  if (isAnimationEnd) {
+    return null;
+  }
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 z-[100] bg-black flex items-center justify-center"
-    >
-      <div className="flex flex-col items-center gap-8">
-        {/* Loading text */}
-        <h2 className="text-4xl xl:text-6xl font-bold text-white/90 tracking-wider">
-          {isComplete ? "READY" : "LOADING"}
-        </h2>
+    <div>
+      {/* Preloader */}
+      <div
+        ref={preloaderRef}
+        className="fixed inset-0 w-full h-screen bg-black overflow-hidden z-50"
+        style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
+      >
+        {/* Progress Bar */}
+        <div
+          className="absolute top-0 left-0 w-full h-[7px] bg-white origin-left"
+          style={{ width: `${progress}%` }}
+        />
 
-        {!isComplete ? (
-          <>
-            {/* Progress bar */}
-            <div className="w-64 xl:w-96 h-1 bg-gray-800 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-white transition-all duration-300 ease-out"
-                style={{ width: `${progress}%` }}
+        {/* Images Container */}
+        <div
+          ref={imagesRef}
+          className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[10rem] h-[10rem] overflow-hidden md:w-[30rem] md:h-[30rem] md:top-[35%]"
+          style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
+        >
+          {images.map((src, index) => (
+            <div
+              key={index}
+              ref={(el) => {
+                imageRefs.current[index] = el;
+              }}
+              className="absolute inset-0 w-full h-full overflow-hidden"
+              style={{
+                clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+              }}
+            >
+              <img
+                src={src}
+                alt=""
+                className="w-full h-full object-cover scale-[2]"
               />
             </div>
+          ))}
+        </div>
 
-            {/* Progress percentage */}
-            <p className="text-xl xl:text-2xl font-bold text-white/60">
-              {Math.round(progress)}%
-            </p>
-          </>
-        ) : (
+        {/* Preloader Header */}
+        <div className="w-full flex justify-center items-center translate-y-[60vh] md:translate-y-[70vh]">
           <button
-            onClick={handleStart}
-            className="rounded-4xl cursor-pointer mt-8 px-12 py-4 text-2xl xl:text-3xl font-bold text-black bg-white hover:bg-gray-200 transition-colors duration-300 tracking-wider"
+            ref={headerRef}
+            className="cursor-pointer text-white font-['Agdasima',_sans-serif] text-[7.5rem] md:text-[4rem] font-semibold leading-[0.9] tracking-wider uppercase whitespace-nowrap p-0 bg-transparent border-0 transition-colors duration-300 hover:text-cyan-300"
+            style={{ opacity: `${progress}%` }}
+            onClick={() => {
+              if (progress >= 100) {
+                endLoadingAnimation();
+              }
+            }}
           >
-            LET's Journey
+            Click To Journey
           </button>
-        )}
+        </div>
+
+        {/* Copy Text */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-[30%] text-white md:w-[80%]">
+          <p
+            ref={copyRef}
+            className="uppercase text-center text-[0.8rem] font-medium leading-relaxed"
+          >
+            Crafting pixel-perfect experiences where code meets creativity and
+            design becomes interactive art
+          </p>
+        </div>
       </div>
     </div>
   );
