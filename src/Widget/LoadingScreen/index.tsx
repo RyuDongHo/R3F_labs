@@ -72,7 +72,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = (props) => {
         <div className="w-full flex justify-center items-center translate-y-[60vh] md:translate-y-[70vh]">
           <button
             ref={headerRef}
-            className="cursor-pointer text-white font-['Agdasima',_sans-serif] text-[7.5rem] md:text-[4rem] font-semibold leading-[0.9] tracking-wider uppercase whitespace-nowrap p-0 bg-transparent border-0 transition-colors duration-300 hover:text-cyan-300"
+            className="cursor-pointer text-white font-['Agdasima',_sans-serif] text-[1.5rem] lg:text-[4rem] font-semibold leading-[0.9] tracking-wider uppercase whitespace-nowrap p-0 bg-transparent border-0 transition-colors duration-300 hover:text-cyan-300"
             style={{ opacity: `${progress}%` }}
             onClick={() => {
               if (progress >= 100) {

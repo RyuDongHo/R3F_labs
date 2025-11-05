@@ -124,19 +124,7 @@ export const useGsapEffect = (props: UseGsapEffectProps) => {
       },
       "-=1.5"
     );
-
-    // 5. 텍스트 재배치
-    tl.to(
-      lines,
-      {
-        y: "-125%",
-        duration: 2,
-        ease: "hop",
-        stagger: 0.1,
-      },
-      "-=2"
-    );
-
+    
     // chars 재배치
     tl.to(
       chars,
