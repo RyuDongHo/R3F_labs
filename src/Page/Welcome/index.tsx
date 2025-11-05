@@ -3,6 +3,7 @@ import SideNav from "@/Widget/SideNav";
 import LoadingScreen from "@/Widget/LoadingScreen";
 import { useProgress } from "@react-three/drei";
 import useMusicStore from "@/Shared/zustand/useMusicStore";
+import useAboutMeModalStore from "@/Shared/zustand/useAboutMeModalStore";
 import AngelSculptureScene from "@/Widget/AngelSculptureScene";
 import SphereScene from "@/Widget/SphereScene";
 import CurveScene from "@/Widget/CurveScene";
@@ -13,6 +14,7 @@ const Welcome = (): React.ReactElement => {
   const containerRef = React.useRef<HTMLDivElement>(null!);
   const { progress } = useProgress();
   const { toggleMusic } = useMusicStore();
+  const { openModal } = useAboutMeModalStore();
   const [scrollToSection] = useHorizontalScroll({ containerRef });
   const [isDesktop] = getIsDesktop();
 
@@ -43,8 +45,7 @@ const Welcome = (): React.ReactElement => {
 
       <SideNav
         menu={[
-          ["ABOUT ME", () => {}],
-          ["PROJECTS", () => {}],
+          ["ABOUT ME", openModal],
           [
             "GIT",
             () => {

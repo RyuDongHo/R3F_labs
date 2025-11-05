@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import Page from "../Page";
 import "./style/global.css";
 import Header from "./ui/Header";
+import Modal from "./ui/Modal";
 import useMusic from "./model/useMusic";
 import React from "react";
 
@@ -19,6 +20,7 @@ const App = (): React.ReactElement => {
       <BrowserRouter>
         <Header />
         <Page />
+        <Modal />
       </BrowserRouter>
     </div>
   );
